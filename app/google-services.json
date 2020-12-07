@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "848860966355",
+    "project_id": "shihab-5a8bf",
+    "storage_bucket": "shihab-5a8bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848860966355:android:211d9e1d00fe925ba19326",
+        "android_client_info": {
+          "package_name": "com.example.shihab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848860966355-l9ne9t37459urhree5qk9pl9os6l49s8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIuqSJ4e7unSyf1q2gZQFCyGqGgm5cCJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848860966355-l9ne9t37459urhree5qk9pl9os6l49s8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
