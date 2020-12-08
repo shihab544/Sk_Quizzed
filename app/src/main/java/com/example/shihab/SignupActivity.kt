@@ -1,10 +1,14 @@
 package com.example.shihab
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.android.synthetic.main.activity_signup.btnSignUp
+import kotlinx.android.synthetic.main.activity_signup.etEmailAddress
+import kotlinx.android.synthetic.main.activity_signup.etPassword
 
 
 class SignupActivity : AppCompatActivity() {
@@ -16,6 +20,12 @@ class SignupActivity : AppCompatActivity() {
             firebaseAuth = FirebaseAuth.getInstance();
             btnSignUp.setOnClickListener{
                 signUpUser()
+            }
+
+            btnLogin.setOnClickListener{
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent);
+                finish();
             }
         }
 
