@@ -1,9 +1,10 @@
-package com.example.shihab
+package com.example.shihab.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.shihab.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -19,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnSignUp.setOnClickListener{
-            val intent = Intent(this,SignupActivity::class.java)
+            val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent);
             finish();
 
@@ -36,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth.signInWithEmailAndPassword(email, password.toString()).addOnCompleteListener(this){
             if(it.isSuccessful){
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this,MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent);
                 finish();
 
