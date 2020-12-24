@@ -45,6 +45,7 @@ class QuestionActivity : AppCompatActivity() {
             val json  = Gson().toJson(quizzes!![0])
             intent.putExtra("QUIZ", json)
             startActivity(intent)
+            finish()
         }
     }
 

@@ -22,6 +22,7 @@ class ResultActivity : AppCompatActivity() {
         quiz = Gson().fromJson<Quiz>(quizData, Quiz::class.java)
         calculateScore()
         setAnswerView()
+
     }
 
     private fun setAnswerView() {
