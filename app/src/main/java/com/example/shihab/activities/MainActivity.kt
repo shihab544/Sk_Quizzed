@@ -1,8 +1,10 @@
 package com.example.shihab.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.SimpleAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,47 +12,54 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.shihab.R
 import com.example.shihab.adapters.QuizAdapter
 import com.example.shihab.models.Quiz
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     lateinit var adapter: QuizAdapter
     private var quizList = mutableListOf<Quiz>()
     lateinit var firestore: FirebaseFirestore
-   // var db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        populateDummyData()
         setUpViews()
-
-    }
-
-    private fun populateDummyData() {
-        quizList.add(Quiz("12-10-2021", "12-10-2021"))
-        quizList.add(Quiz("13-10-2021", "13-10-2021"))
-        quizList.add(Quiz("14-10-2021", "14-10-2021"))
-        quizList.add(Quiz("15-10-2021", "15-10-2021"))
-        quizList.add(Quiz("16-10-2021", "16-10-2021"))
-        quizList.add(Quiz("17-10-2021", "17-10-2021"))
-        quizList.add(Quiz("18-10-2021", "18-10-2021"))
-        quizList.add(Quiz("1626", "Shihab"))
-        quizList.add(Quiz("19-10-2021", "19-10-2021"))
-        quizList.add(Quiz("20-10-2021", "20-10-2021"))
-        quizList.add(Quiz("21-10-2021", "21-10-2021"))
-        quizList.add(Quiz("22-10-2021", "22-10-2021"))
-        quizList.add(Quiz("23-10-2021", "23-10-2021"))
-        quizList.add(Quiz("24-10-2021", "24-10-2021"))
-        quizList.add(Quiz("25-10-2021", "25-10-2021"))
     }
 
     fun setUpViews() {
         setUpFireStore()
         setUpDrawerLayout()
         setUpRecyclerView()
+        setUpDatePicker()
+
+    }
+
+    private fun setUpDatePicker() {
+        btnDatePicker.setOnClickListener {
+            val datePicker = MaterialDatePicker.Builder.datePicker().build()
+            datePicker.show(supportFragmentManager, "DatePicker")
+            datePicker.addOnPositiveButtonClickListener {
+                Log.d("DATEPICKER", datePicker.headerText)
+                val dateFormatter = SimpleDateFormat("dd-mm-yyyy")
+                val date = dateFormatter.format(Date(it))
+                val intent = Intent(this, QuestionActivity::class.java)
+                intent.putExtra("DATE", date)
+                startActivity(intent)
+            }
+            datePicker.addOnNegativeButtonClickListener {
+                Log.d("DATEPICKER", datePicker.headerText)
+
+            }
+            datePicker.addOnCancelListener {
+                Log.d("DATEPICKER", "Date Picker Cancelled")
+            }
+        }
     }
 
     private fun setUpFireStore() {
@@ -65,27 +74,26 @@ class MainActivity : AppCompatActivity() {
             quizList.clear()
             quizList.addAll(value.toObjects(Quiz::class.java))
             adapter.notifyDataSetChanged()
-
         }
     }
 
     private fun setUpRecyclerView() {
-
         adapter = QuizAdapter(this, quizList)
-        quizReclerView.layoutManager = GridLayoutManager(this, 2)
-        quizReclerView.adapter = adapter
-
-
+        quizRecyclerView.layoutManager = GridLayoutManager(this, 2)
+        quizRecyclerView.adapter = adapter
     }
 
     fun setUpDrawerLayout() {
-        setSupportActionBar(AppBar)
-        actionBarDrawerToggle = ActionBarDrawerToggle(
-            this, mainDrawer,
-            R.string.app_name,
-            R.string.app_name
-        )
-        actionBarDrawerToggle.syncState();
+        setSupportActionBar(appBar)
+        actionBarDrawerToggle =
+            ActionBarDrawerToggle(this, mainDrawer, R.string.app_name, R.string.app_name)
+        actionBarDrawerToggle.syncState()
+        navigationView.setNavigationItemSelectedListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+            mainDrawer.closeDrawers()
+            true
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -94,4 +102,5 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }
